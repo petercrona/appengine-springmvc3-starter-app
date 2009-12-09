@@ -70,10 +70,13 @@ public class SwagItem {
 
 	@Persistent(defaultFetchGroup = "true")
 	private List<String> comments = new ArrayList<String>();
-
 	
 	public SwagItem() {
-		super();
+		//Add empty strings for the backing form
+		tags.add("");
+		tags.add("");
+		tags.add("");
+		tags.add("");
 	}
 	
 	public SwagItem(String name, String description, SwagImage image,
