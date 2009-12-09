@@ -2,8 +2,12 @@
 	<!--
 		application id from http://appengine.google.com
 	-->
-	<application>swagswap</application>
+	<application>springstarterapp</application>
 	<version>1</version>
 
+	<inbound-services>
+		<service>mail</service>
+	</inbound-services>
+	
 	<sessions-enabled>true</sessions-enabled>
 </appengine-web-app>
