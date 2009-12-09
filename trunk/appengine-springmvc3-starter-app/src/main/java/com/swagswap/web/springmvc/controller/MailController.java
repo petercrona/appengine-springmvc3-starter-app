@@ -37,9 +37,11 @@ import exceptions.ImageTooLargeException;
 import exceptions.LoadImageFromURLException;
 
 @Controller
-public class IncomingMailController {
-	private static final Logger log = Logger.getLogger(IncomingMailController.class);
-	private static final String FROM_ADDRESS = "swagswap.devoxx2009@gmail.com";
+public class MailController {
+	private static final Logger log = Logger.getLogger(MailController.class);
+	//This has to be registered as an admin in the appengine project you deploy to
+	//or it won't allow sending from this address
+	private static final String FROM_ADDRESS = "gaespringstarterapp@gmail.com";
 
 	@Autowired
 	private SwagItemService itemService;
@@ -213,13 +215,13 @@ public class IncomingMailController {
 
 	private void sendItemAddExceptionEmail(String fromEmail, Exception e) {
 		send(fromEmail,"Your SwagItem email upload failed :(",
-			"<b>Please <a href=\"http://code.google.com/p/swagswap/issues/entry?template=Defect%20report%20from%20user\">" +
+			"<b>Please <a href=\"http://code.google.com/p/springstarterapp/issues/entry?template=Defect%20report%20from%20user\">" +
 				"report this issue</a> (requires a google account)</b><br/><br/>Exception:<br/>" + e.toString()
 		);
 	}
 	
 	private void sendItemAddExceptionEmailToAdmin(Exception e) {
-		send("swagswap.devoxx2009@gmail.com","SwagItem email upload failed :(",
+		send("gaespringstarterapp@gmail.com","SwagItem email upload failed :(",
 				e.toString()
 			);
 	}
@@ -228,7 +230,7 @@ public class IncomingMailController {
 		send(fromEmail,
 			"Your swag item: " + swagItem.getName()
 					+ " has been successfuly created.  You may want to fill in additional item information",
-			"\n\n<br/><br/>See Your Item here: (Spring MVC impl) http://swagswap.appspot.com/springmvc/view/"
+			"\n\n<br/><br/>See Your Item here: http://springstarterapp.appspot.com/swag/view/"
 					+ swagItem.getKey()
 			);
 	}
