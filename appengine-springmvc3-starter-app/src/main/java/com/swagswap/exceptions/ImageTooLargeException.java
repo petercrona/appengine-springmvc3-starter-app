@@ -1,4 +1,4 @@
-package exceptions;
+package com.swagswap.exceptions;
 
 
 public class ImageTooLargeException extends RuntimeException {

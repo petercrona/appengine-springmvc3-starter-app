@@ -1,4 +1,4 @@
-package exceptions;
+package com.swagswap.exceptions;
 
 
 public class LoadImageFromURLException extends RuntimeException {
