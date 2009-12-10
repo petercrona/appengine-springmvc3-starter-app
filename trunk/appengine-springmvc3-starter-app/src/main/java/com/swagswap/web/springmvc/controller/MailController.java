@@ -26,10 +26,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.swagswap.domain.SwagItem;
+import com.swagswap.exceptions.ImageTooLargeException;
+import com.swagswap.exceptions.LoadImageFromURLException;
 import com.swagswap.service.SwagItemService;
 
-import exceptions.ImageTooLargeException;
-import exceptions.LoadImageFromURLException;
 
 @Controller
 public class MailController {
