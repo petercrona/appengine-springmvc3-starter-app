@@ -54,30 +54,6 @@
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" p:order="2" />
-
-	<!--
-		- The AtomView rendering a Atom feed of the visits <bean id="visits"
-		class="org.springframework.samples.petclinic.web.VisitsAtomView"/>
-
-		<bean id="vets"
-		class="org.springframework.web.servlet.view.xml.MarshallingView">
-		<property name="contentType"
-		value="application/vnd.springsource.samples.petclinic+xml"/> <property
-		name="marshaller" ref="marshaller"/> </bean> <oxm:jaxb2-marshaller
-		id="marshaller"> <oxm:class-to-be-bound
-		name="org.springframework.samples.petclinic.Vets"/>
-		</oxm:jaxb2-marshaller>
-	-->
-
-	<!--
-		- Message source for this context, loaded from localized "messages_xx"
-		files. - Could also reside in the root application context, as it is
-		generic, - but is currently just used within PetClinic's web tier.
-		<bean id="messageSource"
-		class="org.springframework.context.support.ResourceBundleMessageSource"
-		p:basename="messages"/>
-	-->
-	
 	
 	<bean id="persistenceManagerFactory"
 		class="org.springframework.orm.jdo.LocalPersistenceManagerFactoryBean">
