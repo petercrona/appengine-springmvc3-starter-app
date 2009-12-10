@@ -88,7 +88,7 @@ public class MailController {
 			SwagItem swagItem = new SwagItem();
 			swagItem.setOwner(fromEmail);
 			swagItem.setName(mailSubject);
-//			swagItem.setDescription(messageBody);
+			swagItem.setDescription(contentText);
 			swagItem.setImageBytes(imageData);
 			itemService.save(swagItem);
 			
@@ -108,25 +108,6 @@ public class MailController {
 			response.setStatus(HttpServletResponse.SC_OK);
 		}
 	}
-
-/*	private Multipart extractMimeMultipart(MimeMessage mimeMessage) throws IOException,
-			MessagingException {
-		// from
-		// http://groups.google.com/group/google-appengine-java/browse_thread/thread/e6a23e509e7d43c9/09c5b278e85144ff?lnk=gst&q=incoming+email#09c5b278e85144ff
-		InputStream inputStreamMailContent = null;
-		try {
-			//see http://jeremyblythe.blogspot.com/2009/12/gae-128-fixes-mail-but-not-jaxb.html
-			log.info("content is from multipart is " + mimeMessage.getContent());
-			Object content = mimeMessage.getContent();//TODO fix for 1.2.8
-			inputStreamMailContent = (InputStream) mimeMessage.getContent();
-			ByteArrayDataSource byteArrayDataSource = new ByteArrayDataSource(
-					inputStreamMailContent, mimeMessage.getContentType());
-			Multipart mimeMultipart = new MimeMultipart(byteArrayDataSource);
-			return mimeMultipart;
-		} finally {
-			try {if (inputStreamMailContent!=null) inputStreamMailContent.close();} catch (Exception e) {}
-		}
-	}*/
 
 	/**
 	 * From http://java.sun.com/developer/onlineTraining/JavaMail/contents.html#JavaMailMessage
