@@ -34,15 +34,20 @@ import exceptions.LoadImageFromURLException;
 @Controller
 public class MailController {
 	private static final Logger log = Logger.getLogger(MailController.class);
-	//This has to be registered as an admin in the appengine project you deploy to
+	//This email has to be registered as an admin in the appengine project you deploy to
 	//or it won't allow sending from this address
-	private static final String FROM_ADDRESS = "gaespringstarterapp@gmail.com";
+	private static final String ADMIN_EMAIL = "gaespringstarterapp@gmail.com";
 
 	@Autowired
 	private SwagItemService itemService;
 	
-	// Incoming email see
-	// http://code.google.com/appengine/docs/java/mail/receiving.html
+	/**
+	 * Handle incoming email see
+	 * http://code.google.com/appengine/docs/java/mail/receiving.html	
+	 * 
+	 * Create an item from the email and notify the sender of item creation
+	 * 
+	 */
 	@RequestMapping(value = "/_ah/mail/{address}", method = RequestMethod.POST)
 	public void createSwagItemFromIncomingEmail(@PathVariable("address") String address,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -59,37 +64,33 @@ public class MailController {
 			fromEmail = ((InternetAddress)mimeMessage.getFrom()[0]).getAddress();
 			log.debug("Receieved message from " + fromEmail +  " subject " + mailSubject);
 	
-			//dissect mimeMessage
-			
+			//get gody and attachment
 			//from http://jeremyblythe.blogspot.com/2009/12/gae-128-fixes-mail-but-not-jaxb.html
 			Object content = mimeMessage.getContent();
 			
-	        String contentText = "";
+	        String bodyText = "";
 	        byte[] imageData = null;
 	        if (content instanceof String) {
-	            contentText = (String)content;
+	            bodyText = (String)content;
 	        } else if (content instanceof Multipart) {
 	            Multipart multipart = (Multipart)content;
 	            Part part = multipart.getBodyPart(0);
 	            Object partContent = part.getContent();
 	            if (partContent instanceof String) {
-	                contentText = (String)partContent;
+	                bodyText = (String)partContent;
 	            }
 	            //extract attached image if any
 	            imageData = getMailAttachmentBytes(multipart);
 	        }
 			
-
+	        //create item from mail
 			SwagItem swagItem = new SwagItem();
 			swagItem.setOwner(fromEmail);
 			swagItem.setName(mailSubject);
-			swagItem.setDescription(contentText);
+			swagItem.setDescription(bodyText);
 			swagItem.setImageBytes(imageData);
 			itemService.save(swagItem);
-			
-			
 			sendItemAddedSuccessfullyEmail(fromEmail, swagItem);
-			
 		}
 		catch (Exception e) {
 			log.error("Problem with incoming message from " + fromEmail,e);
@@ -99,7 +100,8 @@ public class MailController {
 			sendItemAddExceptionEmailToAdmin(e);
 		}
 		finally {
-			//always send status OK or Appengine will keep retrying
+			//this is for if this method is called from TaskQueues (it's not right now)
+			//always send status OK or Appengine Task Queues will keep retrying
 			response.setStatus(HttpServletResponse.SC_OK);
 		}
 	}
@@ -133,27 +135,6 @@ public class MailController {
 		return null;
 	}
 
-	protected String extractMessageText(String messageBody) {
-		String isoString = "iso-8859-1";
-		if (messageBody==null) {
-			return "";
-		}
-		int indexOfISO = messageBody.toLowerCase().indexOf(isoString);
-		if (indexOfISO==-1) {
-			return messageBody;
-		}
-		else {
-			String messageBodyWithChoppedPrefix = messageBody.substring(indexOfISO+isoString.length(),messageBody.length());
-			//take off outlook crap
-			String messaageBodyWithChoppedPrefixAndOutlookCrap = messageBodyWithChoppedPrefix.replace("\" Content-Transfer-Encoding: quoted-printable" , "");
-			int indexOfDashes = messaageBodyWithChoppedPrefixAndOutlookCrap.indexOf("--");
-			if (indexOfDashes==-1) {
-				return messaageBodyWithChoppedPrefixAndOutlookCrap.trim();
-			}
-			String justTheText = messaageBodyWithChoppedPrefixAndOutlookCrap.substring(0,indexOfDashes);
-			return justTheText.trim();
-		}
-	}
 
 	private void sendItemAddExceptionEmail(String fromEmail, Exception e) {
 		send(fromEmail,"Your Item email upload failed :(",
@@ -163,7 +144,7 @@ public class MailController {
 	}
 	
 	private void sendItemAddExceptionEmailToAdmin(Exception e) {
-		send("gaespringstarterapp@gmail.com","SwagItem email upload failed :(",
+		send(ADMIN_EMAIL,"SwagItem email upload failed :(",
 				e.toString()
 			);
 	}
@@ -183,19 +164,17 @@ public class MailController {
         Session session = Session.getDefaultInstance(props, null);
         try {
             Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress(FROM_ADDRESS));
+            msg.setFrom(new InternetAddress(ADMIN_EMAIL));
             msg.addRecipient(Message.RecipientType.TO,new InternetAddress(email));
             msg.setSubject(subject);
 	        msg.setContent(msgBody,"text/html");
             Transport.send(msg);
             log.debug("sending mail to " + email);
         } catch (Exception e) {
-           log.error("sender is " +  FROM_ADDRESS, e);
+           log.error("sender is " +  ADMIN_EMAIL, e);
         }
 	}
 	
-
-	// tsk tsk, this is copy pasted from ItemService.getImageDataFromURL()
 	public byte[] getImageDataFromInputStream(InputStream inputStream)
 			throws LoadImageFromURLException, ImageTooLargeException {
 		BufferedInputStream bis = null;
