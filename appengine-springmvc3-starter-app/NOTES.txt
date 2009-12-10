@@ -1,8 +1,9 @@
-Source of this project:
+Home page of this project:
 http://code.google.com/p/appengine-springmvc3-starter-app/
 
 This is an offshoot from an early branch of the swagswap project
-that is a good starting point for a spring mvc appengine app. 
+(http://code.google.com/p/swagswap/)
+which is a good starting point for a spring mvc appengine app. 
 It includes incoming mail support.  See the swagswap project for 
 security, JSF, GWT, and more.
 
@@ -10,4 +11,4 @@ To deploy this yourself, ensure that the from address in MailController
 is a registered developer (admin) in your appengine application
 
 to add an item via mail, send an email to add@springstarterapp.appspotmail.com
-with the item name in the subject and an optional attached image.
+with the item name in the subject, an optional description in the body, and an optional attached image.

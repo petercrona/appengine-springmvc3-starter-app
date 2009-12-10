@@ -4,13 +4,14 @@
 
 <%--Shows a search box and a list of SwagItems using the old but good displaytag library --%>
 
+
 <form:form action="/springmvc/search" commandName="searchCriteria" name="searchForm" method="GET">
 
 	<c:if test="${not empty searchCriteria.searchString}">
-		<h2>Swag Item Search: ${searchCriteria.searchString}</h2>
+		<h2>Item Search: ${searchCriteria.searchString}</h2>
 	</c:if>
 	<c:if test="${empty searchCriteria.searchString}">
-		<h2>All Swag Items</h2>
+		<h2>All Items</h2>
 	</c:if>
 
 	Note: Search is case sensitive, full word, and only on Name and Tags in this implementation
@@ -18,10 +19,10 @@
 		<tr>
 			<td><form:input path="searchString" />
 				<a href="#" onclick="document.searchForm.submit()">
-				<img src="/images/icon_flashlight.gif" border="0"/>Search Swag</a>
+				<img src="/images/icon_flashlight.gif" border="0"/>Search</a>
 				&nbsp; 
 				<a href="/springmvc/add"><img src="/images/newAdd.png" 
-				   title="Add SwagItem" border="0"/>Add Swag</a>
+				   title="Add SwagItem" border="0"/>Add Item</a>
 			</td>
 		</tr>
 	</table>

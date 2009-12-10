@@ -2,6 +2,8 @@
 <%@ include file="/WEB-INF/jsp/includes.jsp" %>
 <%@ include file="/WEB-INF/jsp/header.jsp" %>
 
+<a href="/springmvc/search">Back to List</a>
+
 <c:if test="${!swagItem.new}">
 	<h2>Edit ${swagItem.name}</h2>
 </c:if>

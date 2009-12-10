@@ -195,7 +195,7 @@ public class MailController {
 	}
 
 	private void sendItemAddExceptionEmail(String fromEmail, Exception e) {
-		send(fromEmail,"Your SwagItem email upload failed :(",
+		send(fromEmail,"Your Item email upload failed :(",
 			"<b>Please <a href=\"http://code.google.com/p/springstarterapp/issues/entry?template=Defect%20report%20from%20user\">" +
 				"report this issue</a> (requires a google account)</b><br/><br/>Exception:<br/>" + e.toString()
 		);
@@ -209,9 +209,9 @@ public class MailController {
 
 	private void sendItemAddedSuccessfullyEmail(String fromEmail, SwagItem swagItem) {
 		send(fromEmail,
-			"Your swag item: " + swagItem.getName()
+			"Your item: " + swagItem.getName()
 					+ " has been successfuly created.  You may want to fill in additional item information",
-			"\n\n<br/><br/>See Your Item here: http://springstarterapp.appspot.com/springmvc/view/"
+			"\n\n<br/><br/>See Your Item here: http://springstarterapp.appspot.com/springmvc/edit/"
 					+ swagItem.getKey()
 			);
 	}
