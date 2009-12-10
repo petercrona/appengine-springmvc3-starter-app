@@ -9,7 +9,7 @@
 	<h2>Add</h2>
 </c:if>
 
-<form:form action="/swag/save" enctype="multipart/form-data" commandName="swagItem" method="post">
+<form:form action="/springmvc/save" enctype="multipart/form-data" commandName="swagItem" method="post">
 	<form:hidden path="key" />
 
 	<table>
@@ -50,14 +50,14 @@
 			<td>Image:</td>
 			<td nowrap="true">
 			<c:if test="${not empty swagItem.imageKey}">
-			<img border="0" src="<c:url value='/swag/showImage/${swagItem.imageKey}'/>"/>
+			<img border="0" src="<c:url value='/springmvc/showImage/${swagItem.imageKey}'/>"/>
 			</c:if>
 			<input type="file" name="imageBytes" value="Change Image"/> (Upload New Image)</td>
 		</tr>
 
 	</table>
 	<input type="submit" value="save" />
-	<input type="submit" value="cancel" onclick="document.location.href='<c:url value='/swag/search'/>';return false;" />
+	<input type="submit" value="cancel" onclick="document.location.href='<c:url value='/springmvc/search'/>';return false;" />
 
 </form:form>
 

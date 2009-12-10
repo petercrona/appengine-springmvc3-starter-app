@@ -55,7 +55,7 @@
 
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
-		<url-pattern>/swag/*</url-pattern>
+		<url-pattern>/springmvc/*</url-pattern>
 		<!-- incoming email -->
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
@@ -64,7 +64,8 @@
 		<exception-type>java.lang.Exception</exception-type>
 		<location>/WEB-INF/jsp/uncaughtException.jsp</location>
 	</error-page>
-<!-- 
+	
+<!-- include this to enable Google Auth security
 
 	<security-constraint>
 		<web-resource-collection>
