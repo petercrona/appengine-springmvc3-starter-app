@@ -67,7 +67,7 @@ public class SwagImageController {
 	 * @return
 	 */
 	protected String constructDefaultImageURL(String requestURL) {
-		String baseURL = requestURL.substring(0,requestURL.lastIndexOf("/swag"));
+		String baseURL = requestURL.substring(0,requestURL.lastIndexOf("/springmvc"));
 		return baseURL + "/" + PATH_TO_DEFAULT_IMAGE;
 	}
 
