@@ -4,7 +4,7 @@
 
 <%--Shows a search box and a list of SwagItems using the old but good displaytag library --%>
 
-<form:form action="/swag/search" commandName="searchCriteria" name="searchForm" method="GET">
+<form:form action="/springmvc/search" commandName="searchCriteria" name="searchForm" method="GET">
 
 	<c:if test="${not empty searchCriteria.searchString}">
 		<h2>Swag Item Search: ${searchCriteria.searchString}</h2>
@@ -20,7 +20,7 @@
 				<a href="#" onclick="document.searchForm.submit()">
 				<img src="/images/icon_flashlight.gif" border="0"/>Search Swag</a>
 				&nbsp; 
-				<a href="/swag/add"><img src="/images/newAdd.png" 
+				<a href="/springmvc/add"><img src="/images/newAdd.png" 
 				   title="Add SwagItem" border="0"/>Add Swag</a>
 			</td>
 		</tr>
@@ -28,14 +28,14 @@
 </form:form>
 
 <display:table name="swagItems" uid="swagItemsList" id="currentObject" 
-               requestURI="/swag/search" keepStatus="true">
+               requestURI="/springmvc/search" keepStatus="true">
 	<display:column sortable="true" property="name" />
 
 	<display:column title="Action" style="width: 74px;">
-		<a href="<c:url value='/swag/edit/${currentObject.key}'/>"> 
+		<a href="<c:url value='/springmvc/edit/${currentObject.key}'/>"> 
 			<img border="0" alt="Edit" src="<%=request.getContextPath()%>/images/edit.gif"/></a>
 	        &nbsp;&nbsp;
-            <a href="<c:url value='/swag/delete/${currentObject.key}'/>" onclick="return confirmSubmit()"> 
+            <a href="<c:url value='/springmvc/delete/${currentObject.key}'/>" onclick="return confirmSubmit()"> 
             <img border="0" alt="Delete" src="<%=request.getContextPath()%>/images/delete.gif"/>
 		</a>
 	</display:column>
@@ -44,7 +44,7 @@
 
 	<c:if test="${not empty currentObject.imageKey}">
 		<display:column title="Image">
-			<img border="0" alt="Image" src="<c:url value='/swag/showImage/${currentObject.imageKey}'/>"/>
+			<img border="0" alt="Image" src="<c:url value='/springmvc/showImage/${currentObject.imageKey}'/>"/>
 		</display:column>
 	</c:if>
 

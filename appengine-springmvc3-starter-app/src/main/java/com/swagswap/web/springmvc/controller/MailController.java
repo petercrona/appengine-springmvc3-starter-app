@@ -230,7 +230,7 @@ public class MailController {
 		send(fromEmail,
 			"Your swag item: " + swagItem.getName()
 					+ " has been successfuly created.  You may want to fill in additional item information",
-			"\n\n<br/><br/>See Your Item here: http://springstarterapp.appspot.com/swag/view/"
+			"\n\n<br/><br/>See Your Item here: http://springstarterapp.appspot.com/springmvc/view/"
 					+ swagItem.getKey()
 			);
 	}

@@ -1,11 +1,13 @@
 package com.swagswap.web.springmvc.controller;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,13 +53,13 @@ public class SwagItemController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveHandler(@ModelAttribute SwagItem swagItem) {
 		swagItemService.save(swagItem);
-		return "redirect:/swag/search";
+		return "redirect:/springmvc/search";
 	}
 	
 	@RequestMapping(value = "/delete/{key}", method = RequestMethod.GET)
 	public String deleteHandler(@PathVariable("key") Long key) {
 		swagItemService.delete(key);
-		return "redirect:/swag/search";
+		return "redirect:/springmvc/search";
 	}
 
 	/**
@@ -74,6 +76,16 @@ public class SwagItemController {
 		Collection<SwagItem> swagItems = swagItemService.search(searchCriteria.getSearchString());
 		model.addAttribute("swagItems", swagItems);
 		return "listSwagItems";
+	}
+	
+	/**
+	 * landing page.  have to do it here since / is mapped to spring dispatcher
+	 * for incoming mail
+	 * 
+	 */
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public void startPage(HttpServletResponse response) throws IOException {
+			response.sendRedirect("/springmvc/search");
 	}
 
 	@InitBinder
