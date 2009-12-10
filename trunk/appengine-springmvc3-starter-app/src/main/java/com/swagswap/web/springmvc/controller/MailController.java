@@ -4,9 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Properties;
 
@@ -18,8 +15,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.mail.util.ByteArrayDataSource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -136,40 +131,6 @@ public class MailController {
 			try {if (attachmentInputStream!=null) attachmentInputStream.close();} catch (Exception e) {}
 		}
 		return null;
-	}
-
-	/**
-	 * 
-	 * @param mimeMultipart
-	 * @return messageBody as HTML-stripped String or "" if empty
-	 * @throws UnsupportedEncodingException
-	 * @throws IOException
-	 * @throws MessagingException 
-	 */
-	private String extractMailBodyString(Multipart mimeMultipart)
-			throws UnsupportedEncodingException, IOException, MessagingException {
-		InputStream messageBodyInputStream = null;
-		try {
-			messageBodyInputStream = mimeMultipart.getBodyPart(0).getInputStream();
-			final char[] buffer = new char[0x10000];
-			StringBuilder messageBodyStringBuilder = new StringBuilder();
-			Reader in = new InputStreamReader(messageBodyInputStream, "UTF-8");
-			int read;
-			do {
-			  read = in.read(buffer, 0, buffer.length);
-			  if (read>0) {
-				  messageBodyStringBuilder.append(buffer, 0, read);
-			  }
-			}
-			while (read>=0);
-			String messageBody = messageBodyStringBuilder.toString();
-			String messageBodyText = extractMessageText(messageBody);
-			log.debug("messageBody is " + messageBodyText);
-			return messageBodyText;
-		}
-		finally {
-			try {if (messageBodyInputStream!=null) messageBodyInputStream.close();} catch (Exception e) {}
-		}
 	}
 
 	protected String extractMessageText(String messageBody) {
