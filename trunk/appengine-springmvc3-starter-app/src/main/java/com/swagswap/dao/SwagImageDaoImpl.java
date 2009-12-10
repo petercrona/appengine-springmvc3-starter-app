@@ -30,6 +30,9 @@ public class SwagImageDaoImpl extends JdoDaoSupport implements SwagImageDao {
 	}
 
 	public SwagImage get(String key) {
+		if (key==null) {
+			return null;
+		}
 		SwagImage swagImage = getPersistenceManager().getObjectById(SwagImage.class, key);
 		return swagImage;
 	}
