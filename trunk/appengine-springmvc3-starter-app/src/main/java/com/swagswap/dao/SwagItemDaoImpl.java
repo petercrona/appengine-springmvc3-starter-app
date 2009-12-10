@@ -167,7 +167,7 @@ public class SwagItemDaoImpl extends JdoDaoSupport implements SwagItemDao {
 
 	private void logSwagItems(List<SwagItem> swagItems) {
 		if (log.isDebugEnabled()) {
-			log.debug("returning " + swagItems.size() + " swag items");
+			log.debug("returning " + swagItems.size() + " items");
 			for (SwagItem swagItem : swagItems) {
 				log.debug(swagItem.getName() + " key: " + swagItem.getKey() + " Time: " + swagItem.getLastUpdated());
 			}

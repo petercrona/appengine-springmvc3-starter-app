@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="<spring:url value="/css/screen.css" htmlEscape="true" />" type="text/css"/>
   <link rel="stylesheet" href="<spring:url value="/css/teststyles.css" htmlEscape="true" />" type="text/css"/>
   <link rel="stylesheet" href="<spring:url value="/css/alternative.css" htmlEscape="true" />" type="text/css"/>
-  <title>Swag Swap</title>	
+  <title>Appengine Spring 3 Starter App</title>	
 </head>
 
 <%--Google Analytics (only for swagswap, you can put your own here if deploying yourself --%>
@@ -25,4 +25,14 @@ pageTracker._trackPageview();
 
 <body>
 <div id="mainContent">
-<img src="<spring:url value="/images/trading-floor-banner.jpg" htmlEscape="true" />" alt="Swag Swap"/>
+<table>
+<tr><td style="width: 557px;">
+This is a demo of Spring 3 RESTful MVC CRUD operations on App Engine.
+It also has incoming mail support for adding items. To add an item via email, send an email to:<br/>
+add (at) springstarterapp.appspotmail.com<br/>
+with the item name in the subject, item description in the body, and an optional attached image
+the item will appear on this site (reload the page)<br/>
+For the code see <a href="http://code.google.com/p/appengine-springmvc3-starter-app/">http://code.google.com/p/appengine-springmvc3-starter-app/</a>
+For a bigger sample app see SwagSwap: <a href="http://swagswap.appspot.com">http://swagswap.appspot.com</a>
+</td></tr>
+</table>
