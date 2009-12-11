@@ -67,7 +67,7 @@ public class MailController {
 			log.debug("Receieved message from " + fromEmail + " subject "
 					+ mailSubject);
 
-			// get gody and attachment 
+			// get body and attachment 
 			// from http://jeremyblythe.blogspot.com/2009/12/gae-128-fixes-mail-but-not-jaxb.html
 			Object content = mimeMessage.getContent();
 
